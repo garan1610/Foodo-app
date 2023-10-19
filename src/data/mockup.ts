@@ -3,12 +3,12 @@ import uuid from "react-native-uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { firebaseDb, firebaseStorage } from "../firebase";
 import { IRestaurant } from "../type/restaurant";
-import { EDistrict } from "./utils";
+import { ECategory, EDistrict } from "./utils";
 
-const restaurantSample: IRestaurant[] = [
+export const restaurantSample: IRestaurant[] = [
   {
     name: "Xofa Café & Bistro",
-    category: ["Cafe", "Rượu"],
+    category: [ECategory.Cafe, ECategory.Ruou, ECategory.TrangMieng],
     address: "539 Lĩnh Nam, P.Lĩnh Nam, Q.Hoàng Mai, Hà Nội",
     image:
       "https://lh5.googleusercontent.com/p/AF1QipPEA7Ew-JLQ_ASek_bHkDrd3AqC4DJd85nL_yt1=w408-h270-k-no",
@@ -26,7 +26,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Bún Riêu Bề Bề",
-    category: ["Bữa trưa", "Bún"],
+    category: [ECategory.BuaTrua, ECategory.Bun, ECategory.BuaSang],
     address: "9 P. Tuệ Tĩnh, Bùi Thị Xuân, Hai Bà Trưng, Hà Nội, Việt Nam",
     image:
       "https://lh5.googleusercontent.com/p/AF1QipNnKc-1jNcCez47lAciOuz44fhXyvwVcLl-_68J=w426-h240-k-no",
@@ -44,7 +44,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Quán Chân Gà Nướng Mỹ Miều",
-    category: ["Bữa trưa", "Ăn vặt"],
+    category: [ECategory.BuaTrua, ECategory.AnVat, ECategory.BuaToi],
     address:
       "Ngõ 65 P.Phạm Ngọc Thạch, Khu tập thể Kim Liên, Đống Đa, Hà Nội, Việt Nam",
     image:
@@ -63,7 +63,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Huyền nem rán Hàng Bè",
-    category: ["Nem rán", "Ăn vặt"],
+    category: [ECategory.NemRan, ECategory.AnVat],
     address: "21 P. Hàng Bè, Hàng Bạc, Hoàn Kiếm, Hà Nội, Việt Nam",
     image:
       "https://lh5.googleusercontent.com/p/AF1QipM5NTxAi-4Y5J1aCmQ5gFV8uwFGnY2jSZ4IB6pt=w408-h544-k-no",
@@ -81,7 +81,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Quán xiên cổng Trường Đại học Lao động - Xã hội",
-    category: ["Xiên", "Ăn vặt"],
+    category: [ECategory.Xien, ECategory.AnVat],
     address: "43 Đ. Trần Duy Hưng, Trung Hoà, Cầu Giấy, Hà Nội, Việt Nam",
     image:
       "https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2023/3/2/29590441733938884408413354922482124157373697n-16776598333052015332142-1677727316865-16777273239791962720762.jpg",
@@ -99,7 +99,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Chè Trang",
-    category: ["Chè", "Tráng miệng"],
+    category: [ECategory.Che, ECategory.TrangMieng],
     address:
       "Ngõ 235 P. Trần Quốc Hoàn, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam",
     image:
@@ -118,7 +118,7 @@ const restaurantSample: IRestaurant[] = [
   },
   {
     name: "Bánh Mỳ Nướng Lạng Sơn",
-    category: ["Bánh mì", "Bữa trưa"],
+    category: [ECategory.BanhMi, ECategory.BuaTrua, ECategory.BuaToi],
     address: "201 P. Trần Quốc Hoàn, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam",
     image:
       "https://lh5.googleusercontent.com/p/AF1QipNBzSPjSetch5fkC77YH_kPfOv5i5y2SUaQGtpV=w408-h408-k-no",
@@ -137,12 +137,11 @@ const restaurantSample: IRestaurant[] = [
 
   {
     name: "Nem nướng nha trang chị Quỳnh",
-    category: ["Nem quốn", "Bữa trưa"],
+    category: [ECategory.NemCuon, ECategory.BuaTrua, ECategory.BuaToi],
     address: "201 P. Trần Quốc Hoàn, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam",
-    image:
-      "https://lh5.googleusercontent.com/p/AF1QipPnNtUH7P-c8ug-E0gEEIDSRAJ7CuRKgfIkb8iE=w408-h306-k-no",
-    lat: 21.02284,
-    lng: 105.46588, // chinh so
+    image: "  ",
+    lat: 21.042113,
+    lng: 105.784811,
     price: {
       min: 35000,
       max: 50000,
@@ -157,6 +156,8 @@ const restaurantSample: IRestaurant[] = [
 
 export const uploadImage = async (uri: string) => {
   // It won't upload image if image is not change
+  console.log("eror here");
+
   const blob: any = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -192,5 +193,5 @@ export const createRes = async () => {
       image: avatarUrl,
     });
   });
-  await Promise.all(resUpload);
+  console.log("here");
 };

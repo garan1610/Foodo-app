@@ -64,18 +64,22 @@ const Bookmark = (props: Props) => {
       {listRes.length > 0 ? (
         <Box flex={1}>
           <VStack p={4} flex={1} space={4}>
-            {/* {listRes.map((res) => (
+            {listRes.map((res) => (
               <Box key={res.id}>
                 <ItemCard restaurant={res} />
               </Box>
-            ))} */}
-            <FlatList
+            ))}
+            {/* <FlatList
               data={listRes}
               renderItem={({ item }) => <ItemCard restaurant={item} />}
               refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+
+                />
               }
-            />
+            /> */}
           </VStack>
         </Box>
       ) : (

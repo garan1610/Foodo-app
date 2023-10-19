@@ -15,6 +15,7 @@ import { removeUser } from "../../store/user.reducer";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParams } from "../../navigations/config";
 import { useNavigation } from "@react-navigation/native";
+import { Image } from "expo-image";
 
 type Props = {} & NativeStackScreenProps<RootStackParams, "TabNav">;
 
@@ -77,13 +78,13 @@ const Profile = () => {
             <Box p={3} borderRadius={16} bgColor={"coolGray.100"}>
               <HStack alignItems={"center"} justifyContent={"space-between"}>
                 <HStack alignItems={"center"} space={4}>
-                  <Avatar
-                    size="12"
+                  <Image
                     source={{
-                      uri:
-                        user?.avatarUrl ||
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgc2u0F9JdscSSIM4LH0ca2FLNgVS-vat7LSZKFb73azHEfhVfW7vwnFaq5bidMl1_tsg&usqp=CAU",
+                      uri: user?.avatarUrl
+                        ? user?.avatarUrl
+                        : "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
                     }}
+                    style={{ width: 56, height: 56, borderRadius: 100 }}
                   />
                   <Box>
                     <Text fontWeight={400} fontSize={16}>

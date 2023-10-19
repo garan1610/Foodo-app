@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { setUser } from "../store/user.reducer";
 import { RootState, useAppSelector } from "../store";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = ({
   name = "Jack 5M",
@@ -20,6 +21,7 @@ const HomeHeader = ({
 }: any) => {
   const insets = useSafeAreaInsets();
   const user = useAppSelector((state: RootState) => state.user.user);
+  const navigation = useNavigation<any>();
 
   return (
     <Box
@@ -40,16 +42,22 @@ const HomeHeader = ({
               </Text>
             </HStack>
           </TouchableOpacity>
-          <Box size={8} borderRadius={100} overflow={"hidden"}>
-            <Image
-              source={{
-                uri: user?.avatarUrl
-                  ? user?.avatarUrl
-                  : "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
-              }}
-              style={{ width: 32, height: 32 }}
-            />
-          </Box>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Profile");
+            }}
+          >
+            <Box size={8} borderRadius={100} overflow={"hidden"}>
+              <Image
+                source={{
+                  uri: user?.avatarUrl
+                    ? user?.avatarUrl
+                    : "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
+                }}
+                style={{ width: 32, height: 32 }}
+              />
+            </Box>
+          </TouchableOpacity>
         </HStack>
         <SearchingBar handleSearch={handleSearch} />
       </VStack>

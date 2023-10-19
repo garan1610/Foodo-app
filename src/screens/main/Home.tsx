@@ -1,17 +1,19 @@
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Box, VStack } from "native-base";
 import Header from "../../components/Header";
 import ItemCard from "../../components/ItemCard";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParams } from "../../navigations/config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { firebaseDb } from "../../firebase";
 import { IRestaurant } from "../../type/restaurant";
 import PopUpFilter from "../../components/PopUpFilter";
-import { RootState, useAppSelector } from "../../store";
+import { RootState, useAppDispatch, useAppSelector } from "../../store";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { createRes } from "../../data/mockup";
+import { createRes, restaurantSample } from "../../data/mockup";
+import { removeLoading, setLoading } from "../../store/loading.reducer";
+import { removeDau } from "../../utils/utils";
 
 type Props = {} & NativeStackScreenProps<RootStackParams, "TabNav">;
 
@@ -20,17 +22,30 @@ const Home = (props: Props) => {
   const [allRes, setAllRes] = useState<IRestaurant[]>([]);
   const [showModal, setShowModal] = useState(false);
   const user = useAppSelector((state: RootState) => state.user.user);
-  const handleSearch = (textSearch: string) => {
-    if (textSearch) {
-      const newRes = allRes.filter((res) => res.name.includes(textSearch));
-      setListRes(newRes);
-    } else {
-      setListRes(allRes);
+  const dispatch = useAppDispatch();
+
+  const handleSearch = async (textSearch: string) => {
+    dispatch(setLoading());
+    // Validate
+    try {
+      if (textSearch) {
+        const newRes = allRes.filter((res) =>
+          removeDau(res.name)
+            .toLowerCase()
+            .includes(removeDau(textSearch).toLowerCase())
+        );
+        setListRes(newRes);
+      } else {
+        setListRes(allRes);
+      }
+    } catch (err: any) {
+      Alert.alert(err.message);
+    } finally {
+      dispatch(removeLoading());
     }
   };
 
   const fetchAllRestaurant = async () => {
-    // TODO: Define type for book
     const queryRes = await getDocs(collection(firebaseDb, "restaurants"));
     const restaurants: IRestaurant[] = [];
     queryRes.forEach((doc: any) => {
@@ -38,11 +53,12 @@ const Home = (props: Props) => {
     });
     setListRes(restaurants);
     setAllRes(restaurants);
-    console.log(restaurants);
+
+    // setListRes(restaurantSample);
+    // setAllRes(restaurantSample);
   };
 
   useEffect(() => {
-    // createRes();
     fetchAllRestaurant();
   }, []);
 

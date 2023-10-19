@@ -13,9 +13,10 @@ import {
   onInputChange,
   signUpSchema,
 } from "../../utils/forms";
-import { firebaseDb } from "../../firebase";
+import { firebaseAuth, firebaseDb } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { setUser } from "../../store/user.reducer";
+import { RecaptchaVerifier } from "firebase/auth";
 
 type Props = {} & NativeStackScreenProps<RootStackParams, "Auth"> & any;
 
@@ -28,6 +29,7 @@ type ISignUp = {
 const SignUp = (props: Props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
+  firebaseAuth.languageCode = "it";
 
   const [formData, setFormData] = useState<ISignUp>({
     phone: "",
@@ -68,7 +70,6 @@ const SignUp = (props: Props) => {
       });
     } catch (err: any) {
       Alert.alert(err.message);
-
     } finally {
       dispatch(removeLoading());
     }

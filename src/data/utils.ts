@@ -35,13 +35,6 @@ export const DistrictName = (districtId: string) => {
 export const screenWidth = Dimensions.get("window").width;
 export const screenHeight = Dimensions.get("window").height;
 
-export enum ECategory {
-  Cafe = "0",
-  AnVat = "1",
-  TraChanh = "2",
-  BanhTrang = "3",
-}
-
 export const selectDistrict = [
   {
     label: "Quận Ba Đình",
@@ -76,21 +69,89 @@ export const selectDistrict = [
     value: EDistrict.TayHo,
   },
 ];
+
+export enum ECategory {
+  BuaSang = "0",
+  BuaTrua = "1",
+  BuaToi = "2",
+  Cafe = "3",
+  AnVat = "4",
+  Tra = "5",
+  BanhTrang = "6",
+  Ruou = "7",
+  NemRan = "8",
+  Bun = "9",
+  Xien = "10",
+  Che = "11",
+  TrangMieng = "12",
+  BanhMi = "13",
+  NemCuon = "14",
+  Com = "15",
+}
+
 export const selectCategory = [
+  {
+    label: "Bữa Sáng",
+    value: ECategory.BuaSang,
+  },
+  {
+    label: "Bánh Trưa",
+    value: ECategory.BuaTrua,
+  },
+  {
+    label: "Bữa Tối",
+    value: ECategory.BuaToi,
+  },
+  {
+    label: "Tráng miệng",
+    value: ECategory.TrangMieng,
+  },
+  {
+    label: "Cơm",
+    value: ECategory.Com,
+  },
   {
     label: "Cafe",
     value: ECategory.Cafe,
+  },
+  {
+    label: "Bánh Mì",
+    value: ECategory.BanhMi,
   },
   {
     label: "Ăn Vặt",
     value: ECategory.AnVat,
   },
   {
-    label: "Trà Chanh",
-    value: ECategory.TraChanh,
+    label: "Trà",
+    value: ECategory.Tra,
   },
   {
     label: "Bánh Tráng",
     value: ECategory.BanhTrang,
+  },
+  {
+    label: "Bún",
+    value: ECategory.Bun,
+  },
+  {
+    label: "Chè",
+    value: ECategory.Che,
+  },
+  {
+    label: "Nem Cuốn",
+    value: ECategory.NemCuon,
+  },
+  {
+    label: "Nem Rán",
+    value: ECategory.NemRan,
+  },
+  {
+    label: "Rượu",
+    value: ECategory.Ruou,
+  },
+  {
+    label: "Xiên",
+    value: ECategory.Xien,
   },
 ];
