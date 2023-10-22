@@ -63,6 +63,7 @@ const Restaurant = (props: Props) => {
   const isFocused = useIsFocused();
 
   const [res, setRes] = useState<IRestaurant | any>();
+  const [textLen, setTextLen] = useState(10);
 
   const distanceUser = haversineDistance(
     res?.lat || 0,
@@ -72,8 +73,8 @@ const Restaurant = (props: Props) => {
   );
 
   const handleBookmarkRes = async () => {
+    dispatch(setLoading());
     try {
-      dispatch(setLoading());
       if (user) {
         let newFavourite;
         // check isFavourite
@@ -130,6 +131,7 @@ const Restaurant = (props: Props) => {
         const resRef = doc(firebaseDb, "restaurants", id);
         const resSnap = await getDoc(resRef);
         setRes(resSnap.data() as IRestaurant);
+        setTextLen(resSnap.data()!.name.length);
       } catch (err) {
         console.log(err);
       } finally {
@@ -155,12 +157,15 @@ const Restaurant = (props: Props) => {
               handleBtnBack={() => navigation.goBack()}
             />
             <HStack px={5} pb={3} justifyContent={"space-between"}>
-              <VStack space={2}>
-                <Box>
-                  <Text fontSize={16} fontWeight={700} color="#fff" width={200}>
-                    {res?.name}
-                  </Text>
-                </Box>
+              <VStack space={2} style={{ alignSelf: "center", flex: 1 }}>
+                <Text
+                  fontSize={textLen < 30 ? 20 : 16}
+                  fontWeight={700}
+                  color="#fff"
+                  paddingRight={8}
+                >
+                  {res?.name}
+                </Text>
               </VStack>
               <VStack justifyContent={"flex-end"}>
                 <Text

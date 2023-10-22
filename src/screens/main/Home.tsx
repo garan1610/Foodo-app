@@ -59,24 +59,33 @@ const Home = (props: Props) => {
   };
 
   useEffect(() => {
+    // createRes();
     fetchAllRestaurant();
+    console.log(user);
   }, []);
 
   const handleFilterBtn = (district: string, category: string) => {
-    let newRestaurant = [];
-    if (district && category) {
-      newRestaurant = allRes.filter(
-        (res) => res.category.includes(category) && res.district == district
-      );
-    } else if (district && !category) {
-      newRestaurant = allRes.filter((res) => res.district == district);
-    } else if (category && !district) {
-      newRestaurant = allRes.filter((res) => res.category.includes(category));
-    } else {
-      newRestaurant = [...allRes];
+    try {
+      dispatch(setLoading());
+      let newRestaurant = [];
+      if (district && category) {
+        newRestaurant = allRes.filter(
+          (res) => res.category.includes(category) && res.district == district
+        );
+      } else if (district && !category) {
+        newRestaurant = allRes.filter((res) => res.district == district);
+      } else if (category && !district) {
+        newRestaurant = allRes.filter((res) => res.category.includes(category));
+      } else {
+        newRestaurant = [...allRes];
+      }
+      setListRes(newRestaurant);
+      setShowModal(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(removeLoading());
     }
-    setListRes(newRestaurant);
-    setShowModal(false);
   };
 
   return (
@@ -88,7 +97,10 @@ const Home = (props: Props) => {
       <PopUpFilter
         showModal={showModal}
         setShowModal={setShowModal}
-        handleBtn={handleFilterBtn}
+        handleBtn={(district: string, category: string) => {
+          dispatch(setLoading());
+          handleFilterBtn(district, category);
+        }}
       />
       <ScrollView>
         <VStack p={4} flex={1} space={4}>

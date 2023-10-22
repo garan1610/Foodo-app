@@ -4,6 +4,7 @@ import { Box, Column, FormControl, Text } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 type Props = {
   value: Date;
@@ -31,6 +32,7 @@ const FormDatePicker = ({ value, onChange }: Props) => {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
+        display="spinner"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />

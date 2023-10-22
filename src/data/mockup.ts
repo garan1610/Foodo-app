@@ -136,7 +136,7 @@ export const restaurantSample: IRestaurant[] = [
   },
 
   {
-    name: "Nem nướng nha trang chị Quỳnh",
+    name: "Nem nướng Nha Trang chị Quỳnh",
     category: [ECategory.NemCuon, ECategory.BuaTrua, ECategory.BuaToi],
     address: "201 P. Trần Quốc Hoàn, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam",
     image: "  ",
@@ -183,8 +183,8 @@ export const uploadImage = async (uri: string) => {
 };
 
 export const createRes = async () => {
-  const resUpload = restaurantSample.map(async (restaurant) => {
-    const ResDocRef = doc(collection(firebaseDb, "restaurants"));
+  const resUpload = restaurantSample.map(async (restaurant, index) => {
+    const ResDocRef = doc(collection(firebaseDb, "restaurants", `${index}`));
     const { avatarUrl } = await uploadImage(restaurant.image!);
     await setDoc(ResDocRef, {
       ...restaurant,

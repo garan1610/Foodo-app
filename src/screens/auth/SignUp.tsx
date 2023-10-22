@@ -53,21 +53,22 @@ const SignUp = (props: Props) => {
       await signUpSchema.validate(formData);
       if (formData.password !== formData.repassword) {
         throw Error("Nhập lại mật khẩu chưa đúng");
+      } else {
+        const docRef = doc(firebaseDb, "users", formData.phone);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          throw Error("Số điện thoại đã tồn tại");
+        }
+        /**
+         * * * * * * * * * * * * * * * * * * *
+         * TODO: Move to OTP if didn't exist *
+         * * * * * * * * * * * * * * * * * * *
+         */
+        navigation.navigate("PostAuth", {
+          phone: formData.phone,
+          password: formData.password,
+        });
       }
-      const docRef = doc(firebaseDb, "users", formData.phone);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        throw Error("Số điện thoại đã tồn tại");
-      }
-      /**
-       * * * * * * * * * * * * * * * * * * *
-       * TODO: Move to OTP if didn't exist *
-       * * * * * * * * * * * * * * * * * * *
-       */
-      navigation.navigate("PostAuth", {
-        phone: formData.phone,
-        password: formData.password,
-      });
     } catch (err: any) {
       Alert.alert(err.message);
     } finally {

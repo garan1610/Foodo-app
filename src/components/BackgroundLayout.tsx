@@ -14,7 +14,8 @@ const BackgroundLayout = (props: Props) => {
       <ImageBackground
         source={imageSource || require("../../assets/icon.png")}
         style={{ flex: 1 }}
-        resizeMode="stretch"
+        resizeMode="cover"
+        resizeMethod="auto"
       />
       <Box position={"absolute"} height={"100%"} width={"100%"}>
         {children}
