@@ -1,4 +1,4 @@
-# CodeCrafters
+# Foodo
 
 <img src="assets/Logo.png" width="256" alt='logo'>
 
