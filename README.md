@@ -13,7 +13,7 @@ https://drive.google.com/file/d/1As6Po9MXR3TpIluslgHHEMlYNeOOQP10/view
   - [Features](#features)
   - [Screenshots](#screenshots)
   - [Future Plans](#future-plans)
-  - [Getting Started](#getting-started)
+  - [Experience The Demo of Foodo](#experience-the-demo-of-Foodo)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
 
