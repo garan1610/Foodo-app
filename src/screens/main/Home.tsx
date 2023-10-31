@@ -1,4 +1,4 @@
-import { Alert, StyleSheet } from "react-native";
+import { Alert, LogBox, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Box, VStack } from "native-base";
 import Header from "../../components/Header";
@@ -60,8 +60,8 @@ const Home = (props: Props) => {
 
   useEffect(() => {
     // createRes();
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     fetchAllRestaurant();
-    console.log(user);
   }, []);
 
   const handleFilterBtn = (district: string, category: string) => {

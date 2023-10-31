@@ -44,6 +44,7 @@ import { removeLoading, setLoading } from "../../store/loading.reducer";
 import { setUser } from "../../store/user.reducer";
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
+import { selectCategory } from "../../data/utils";
 type Props = {} & NativeStackScreenProps<RootStackParams, "Restaurant">;
 
 const Restaurant = (props: Props) => {
@@ -216,7 +217,10 @@ const Restaurant = (props: Props) => {
         <HStack alignItems={"center"} space={1}>
           <Bag2 size="20" color={colors.coolGray[500]} />
           <Text color={"coolGray.500"} fontWeight={400} fontSize={14}>
-            {res?.category.toString().replace(",", " - ")}
+            {res?.category
+              .map((cat: any) => selectCategory[cat].label)
+              .toString()
+              .replaceAll(",", " - ")}
           </Text>
         </HStack>
         <HStack justifyContent={"space-between"}>

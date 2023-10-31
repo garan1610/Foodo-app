@@ -184,7 +184,12 @@ export const uploadImage = async (uri: string) => {
 
 export const createRes = async () => {
   const resUpload = restaurantSample.map(async (restaurant, index) => {
-    const ResDocRef = doc(collection(firebaseDb, "restaurants", `${index}`));
+    const ResDocRef = doc(
+      firebaseDb,
+      "restaurants",
+      `${index}
+    `
+    );
     const { avatarUrl } = await uploadImage(restaurant.image!);
     await setDoc(ResDocRef, {
       ...restaurant,
